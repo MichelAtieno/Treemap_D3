@@ -29,6 +29,33 @@ let drawTreeMap = () => {
     
     block.append('rect')
          .attr('class', 'tile')
+         .attr('fill', (movie) => {
+             let category = movie['data']['category']
+             if(category === 'Action'){
+                 return 'orange'
+             } else if(category === 'Drama'){
+                return 'lightgreen'
+             } else if(category === 'Adventure'){
+                return 'coral'
+             }  else if(category === 'Family'){
+                return 'lightblue'
+             }  else if(category === 'Animation'){
+                return 'pink' 
+             }  else if(category === 'Comedy'){
+                return 'khaki'
+             }  else if(category === 'Biography'){
+                return 'tan'
+             }
+         })
+         .attr('data-name', (movie) => {
+             return movie['data']['name']
+         })
+         .attr('data-category', (movie) => {
+            return movie['data']['category']
+        })
+        .attr('data-value', (movie) => {
+            return movie['data']['value']
+        })
 }
 
 d3.json(movieDataUrl).then(
