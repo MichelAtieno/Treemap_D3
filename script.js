@@ -26,6 +26,9 @@ let drawTreeMap = () => {
                         .data(movieTiles)
                         .enter()
                         .append('g')
+                        .attr('transform', (movie) => {
+                            return 'translate(' + movie['x0'] + ', ' + movie['y0'] + ')'
+                        })
     
     block.append('rect')
          .attr('class', 'tile')
@@ -55,6 +58,12 @@ let drawTreeMap = () => {
         })
         .attr('data-value', (movie) => {
             return movie['data']['value']
+        })
+        .attr('width', (movie) => {
+            return movie['x1'] - movie['x0']
+        })
+        .attr('height', (movie) => {
+            return movie['y1'] - movie['y0']
         })
 }
 
