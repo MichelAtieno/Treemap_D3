@@ -3,6 +3,7 @@ let movieDataUrl = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree
 let movieData
 
 let canvas = d3.select('#canvas')
+let tooltip = d3.select('#tooltip')
 
 let drawTreeMap = () => {
 
@@ -65,6 +66,27 @@ let drawTreeMap = () => {
         .attr('height', (movie) => {
             return movie['y1'] - movie['y0']
         })
+        .on('mouseover', (movie) => {
+            tooltip.transition()
+                   .style('visibility', 'visible')
+
+            let revenue = movie['data']['value'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+            tooltip.html(
+                '$ ' + revenue + '<hr />' + movie['data']['name']
+            )
+        })
+        .on('mouseout', (movie) => {
+            tooltip.transition()
+                   .style('visibility', 'hidden')
+        })
+
+    block.append('text')
+         .text((movie) => {
+             return movie['data']['name']
+         })
+         .attr('x', 5)
+         .attr('y', 20)
 }
 
 d3.json(movieDataUrl).then(
